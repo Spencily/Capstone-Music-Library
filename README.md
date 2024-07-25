@@ -1,12 +1,19 @@
 # Dettingen Music Library
 
+![App Interface Screenshot](https://github.com/username/repository/blob/main/images/screenshot.png)
+
 ## UX Design
 The Music Library App is designed to provide a seamless and user-friendly experience for musicians and administrators. The app allows users to browse, filter, and manage a comprehensive library of musical scores. Key design considerations include:
 - **Intuitive Navigation:** Easy access to the music library, setlists, and user account management.
 - **Responsive Design:** Ensuring the app is accessible on various devices, including desktops, tablets, and smartphones.
 - **Clear Visual Hierarchy:** Use of consistent colors, typography, and spacing to guide users through the app's functionalities.
 
+### Wireframe Design
+![Wireframe PDF](https://github.com/username/repository/blob/main/images/screenshot.png)
+
 ## Features
+![Mindmap Screenshot](https://github.com/username/repository/blob/main/images/screenshot.png)
+
 ### User Authentication
 - **User Login:** Secure login for all users to access the app.
 - **Admin Login:** Additional privileges for admins to manage the library.
@@ -32,6 +39,13 @@ The Music Library App is designed to provide a seamless and user-friendly experi
 
 ### Location Information
 - **March Card Location:** Users can view the physical location of march card versions of scores.
+
+## Github Repository
+![Kanban Board Screenshot](https://github.com/username/repository/blob/main/images/screenshot.png)
+
+![Milestones Screenshot](https://github.com/username/repository/blob/main/images/screenshot.png)
+
+![Milestone Roadmap Screenshot](https://github.com/username/repository/blob/main/images/screenshot.png)
 
 ## Technologies
 ### Frontend
