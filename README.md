@@ -9,10 +9,10 @@ The Music Library App is designed to provide a seamless and user-friendly experi
 - **Clear Visual Hierarchy:** Use of consistent colors, typography, and spacing to guide users through the app's functionalities.
 
 ### Wireframe Design
-![Wireframe PDF](https://github.com/username/repository/blob/main/images/screenshot.png)
+![Wireframe PDF](static/readme/Wireframe%20PDF.pdf)
 
 ## Features
-![Mindmap Screenshot](https://github.com/username/repository/blob/main/images/screenshot.png)
+![Mindmap Screenshot](static/readme/Mind%20Map.jpg)
 
 ### User Authentication
 - **User Login:** Secure login for all users to access the app.
@@ -41,11 +41,15 @@ The Music Library App is designed to provide a seamless and user-friendly experi
 - **March Card Location:** Users can view the physical location of march card versions of scores.
 
 ## Github Repository
-![Kanban Board Screenshot](https://github.com/username/repository/blob/main/images/screenshot.png)
 
-![Milestones Screenshot](https://github.com/username/repository/blob/main/images/screenshot.png)
+### Kanban Board
+![Kanban Board Screenshot](static/readme/Kanban%20Board.png)
 
-![Milestone Roadmap Screenshot](https://github.com/username/repository/blob/main/images/screenshot.png)
+### Milestones
+![Milestones Screenshot](static/readme/Milestones.png)
+
+### Roadmap
+![Milestone Roadmap Screenshot](static/readme/Milestone%20Roadmap.png)
 
 ## Technologies
 ### Frontend
