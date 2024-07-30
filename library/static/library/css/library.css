@@ -1,0 +1,34 @@
+/* Table */
+.library {
+    margin: 50px;
+}
+
+tr {
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    background-color: #f2f2f2;
+    border: 1px solid #ddd;
+    padding: 10px;
+    column-width: 100px;
+    text-align: center;
+}
+
+/* Piece Form */
+
+.form {
+    margin-top: 50px;
+    margin-right: 50px;
+    max-width: 400px;
+}
+
+@media (max-width: 1023px) {
+    .library {
+        margin: 0;
+    }
+
+    .form {
+        margin: 0;
+    }
+}

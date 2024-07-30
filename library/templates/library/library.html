@@ -1,7 +1,58 @@
 {% extends 'base.html' %}
-
 {% load static %}
+{% load crispy_forms_tags %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'library/css/library.css' %}">
+{% endblock %} 
 
 {% block content %}
-    
+
+<div class="row g-0">
+    <div class="col-8 library">
+        <h2> Our Library </h2>
+        <table>
+            <tr>
+                <th> Piece </th>
+                <th> Composer </th>
+                <th> Arranged By </th>
+                <th> Genre </th>
+                <th> March Card Location </th>
+                <th> Band Arrangement </th>
+                {% if user.is_superuser %}
+                <th> Actions </th>
+                {% endif %}
+            </tr>
+            {% for piece in pieces %}
+            <tr>
+                <td> {{ piece.title }} </td>
+                <td> {{ piece.composer }} </td>
+                <td> {{ piece.arranged_by }} </td>
+                <td> {{ piece.genre }} </td>
+                <td> {{ piece.mc_location }} </td>
+                <td> {{ piece.band_arrangement }} </td>
+                {% if user.is_superuser %}
+                <td>
+                    <a href="{% url 'piece_edit' piece.id %}"> Edit </a>
+                    <a href="{% url 'piece_delete' piece.id %}"> Delete </a>
+                </td>
+                {% endif %}
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+    {% if user.is_superuser %}
+    <div class="col form">
+        <h2> Add a New Piece </h2>
+        <form id="pieceForm" method="post">
+            {{ piece_form | crispy }}
+            {% csrf_token %}
+            <button id="submitButton" type="submit" class="btn btn-lg">Submit</button>
+            <a href="{% url 'library' %}" class="btn btn-lg">Cancel</a>
+        </form>
+    </div>
+    {% endif %}
+</div>
+
 {% endblock %}
