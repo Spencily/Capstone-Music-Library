@@ -18,7 +18,7 @@
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}">
     {% block css %}{% endblock %}
 
 </head>
@@ -27,21 +27,32 @@
     <header>
         <div class="container-fluid g-0 flex-wrap">
             <div class="row g-0">
-                <div class="col-10">
+                <div class="col-md-10 header">
                     <h1>Dettingen Music Library</h1>
                 </div>
-                <div class="col-2">
-                    {% if user.is_authenticated %}
-                    <li class="nav-item">
-                        <a class="nav-link {% if request.path == logout_url %}active{% endif %}" aria-current="page"
-                            href="{% url 'account_logout' %}">Logout</a>
-                    </li>
-                    {% else %}
-                    <li class="nav-item">
-                        <a class="nav-link {% if request.path == login_url %}active{% endif %}" aria-current="page"
-                            href="{% url 'account_login' %}">Login</a>
-                    </li>
-                    {% endif %}
+                <div class="col-md-2">
+                    <ul class="nav flex-md-column">
+                        {% if user.is_authenticated %}
+                        <li class="nav-item">
+                            <a class="nav-link {% if request.path == logout_url %}active{% endif %}" aria-current="page"
+                                href="{% url 'account_logout' %}">Logout</a>
+                        </li>
+                        {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link {% if request.path == login_url %}active{% endif %}" aria-current="page"
+                                href="{% url 'account_login' %}">Login</a>
+                        </li>
+                        {% endif %}
+                        <li class="nav-item">
+                            <a class="nav-link {% if url_name == 'library' %}active{% endif %}"
+                                href="{% url 'library' %}">
+                                Our Library</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {% if url_name == 'setlist' %}active{% endif %}"
+                                href="{% url 'setlist' %}">My Setlists</a>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
@@ -52,7 +63,7 @@
     </main>
 
     <footer>
-        <div>
+        <div class="copyright">
             <p>&copy; 2024 Dettingen ACF Band</p>
         </div>
     </footer>
