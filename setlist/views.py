@@ -2,7 +2,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from django.urls import reverse
+from django.urls import resolve, reverse
 
 from library.models import Piece
 
@@ -13,17 +13,8 @@ from .models import Setlist
 # Create your views here.
 @login_required
 def setlist_list(request):
-    if request.method == "POST":
-        set_form = SetForm(request.POST)
-        if set_form.is_valid():
-            set_form.save()
-            return HttpResponseRedirect(reverse("setlist"))
-
     setlists = Setlist.objects.all()
-    set_form = SetForm()
-    return render(
-        request, "setlist/setlist.html", {"setlists": setlists, "set_form": set_form}
-    )
+    return render(request, "setlist/setlist.html", {"setlists": setlists})
 
 
 def setlist_view(request, pk):
@@ -31,25 +22,46 @@ def setlist_view(request, pk):
     setlists = Setlist.objects.all()
     pieces = Piece.objects.filter(setlist=setlist)
     return render(
-        request, "setlist/setlist.html", {"setlist": setlist, "setlists": setlists, "pieces": pieces}
+        request,
+        "setlist/setlist.html",
+        {"setlist": setlist, "setlists": setlists, "pieces": pieces},
     )
+
+
+def setlist_add(request):
+    if request.method == "POST":
+        setlist_form = SetForm(request.POST)
+        if setlist_form.is_valid():
+            setlist_form.save()
+            messages.success(request, "New Setlist Added")
+            return HttpResponseRedirect(reverse("setlist"))
+
+    setlist_form = SetForm()
+    context = {
+        "setlist_form": setlist_form,
+        "current_url": resolve(request.path_info).url_name,
+    }
+    return render(request, "setlist/setlist_form.html", context)
 
 
 def setlist_edit(request, pk):
     if request.method == "POST":
         setlist = get_object_or_404(Setlist, pk=pk)
-        set_form = SetForm(request.POST, instance=setlist)
-        if set_form.is_valid():
-            set_form.save()
+        setlist_form = SetForm(request.POST, instance=setlist)
+        if setlist_form.is_valid():
+            setlist_form.save()
             messages.success(request, "Update Successful")
             return HttpResponseRedirect(reverse("setlist"))
 
     setlist = get_object_or_404(Setlist, pk=pk)
-    set_form = SetForm(instance=setlist)
+    setlist_form = SetForm(instance=setlist)
     setlists = Setlist.objects.all()
-    return render(
-        request, "setlist/setlist.html", {"setlists": setlists, "set_form": set_form}
-    )
+    context = {
+        "setlists": setlists,
+        "setlist_form": setlist_form,
+        "current_url": resolve(request.path_info).url_name,
+    }
+    return render(request, "setlist/setlist_form.html", context)
 
 
 def setlist_delete(request, pk):
@@ -58,14 +70,3 @@ def setlist_delete(request, pk):
         setlist.delete()
         messages.success(request, "Deletion Successful")
     return HttpResponseRedirect(reverse("setlist"))
-
-
-def setlist_add(request):
-    if request.method == "POST":
-        set_form = SetForm(request.POST)
-        if set_form.is_valid():
-            set_form.save()
-            return HttpResponseRedirect(reverse("setlist"))
-
-    set_form = SetForm()
-    return render(request, "setlist/setlist.html", {"set_form": set_form})

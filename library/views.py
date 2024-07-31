@@ -15,6 +15,7 @@ def library_view(request):
         piece_form = PieceForm(request.POST)
         if piece_form.is_valid():
             piece_form.save()
+            messages.success(request, "New Piece Added")
             return HttpResponseRedirect(reverse("library"))
 
     pieces = Piece.objects.all()

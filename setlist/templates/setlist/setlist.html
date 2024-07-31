@@ -1,6 +1,5 @@
 {% extends 'base.html' %}
 {% load static %}
-{% load crispy_forms_tags %}
 
 {% block css %}
 <link rel="stylesheet" href="{% static 'setlist/css/setlist.css' %}">
@@ -10,27 +9,33 @@
 
 <div class="row g-0">
     <div class="col-4 setlists">
-        <h2> My Setlists </h2>
-        <table>
-            <tr>
-                <th> Setlist Name </th>
-                <th> Actions </th>
-            </tr>
-            {% for setlist in setlists %}
-            <tr>
-                <td>
-                    <a href="{% url 'setlist_view' setlist.id %}"> {{setlist.title}}</a>
-                </td>
-                <td>
-                    <a href="{% url 'setlist_edit' setlist.id %}"> Edit </a>
-                    <form method="post" action="{% url 'setlist_delete' setlist.id %}" class="delete-form">
-                        {% csrf_token %}
-                        <button type="button" class="btn btn-danger delete-btn">Delete</button>
-                    </form>
-                </td>
-            </tr>
-            {% endfor %}
-        </table>
+        <div class="row g-0">
+            <div class="col-6">
+                <h2> My Setlists </h2>
+            </div>
+            <div class="col-6">
+                <a href="{% url 'setlist_add' %}" class="btn btn-outline-success"> Create a Setlist </a>
+            </div>
+
+        </div>
+
+
+        {% for setlist in setlists %}
+        <div class="row g-0">
+            <div class="col-6">
+                <a href="{% url 'setlist_view' setlist.id %}"> {{setlist.title}}</a>
+            </div>
+            <div class="col-3">
+                <a href="{% url 'setlist_edit' setlist.id %}" class="btn btn-outline-warning"> Edit </a>
+            </div>
+            <div class="col-3">
+                <form method="post" action="{% url 'setlist_delete' setlist.id %}" class="delete-form">
+                    {% csrf_token %}
+                    <button type="button" class="btn btn-outline-danger delete-btn">Delete</button>
+                </form>
+            </div>
+        </div>
+        {% endfor %}
     </div>
 
     <div class="col-8 setlist_view">

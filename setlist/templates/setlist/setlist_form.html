@@ -1,9 +1,31 @@
-<!-- <div class="col form">
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'setlist/css/setlist.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="col form">
+    {% if current_url == 'setlist_edit' %}
+    <h2> Edit Setlist </h2>
+    {% else %}
     <h2> Add a New Setlist </h2>
+    {% endif %}
     <form id="setlistForm" method="post">
         {{ setlist_form | crispy }}
         {% csrf_token %}
-        <button id="submitButton" type="submit" class="btn btn-lg">Submit</button>
+        <button id="submitButton" type="submit" class="btn btn-lg">
+            {% if current_url == 'setlist_edit' %}
+            Update
+            {% else %}
+            Submit
+            {% endif %}
+        </button>
         <a href="{% url 'setlist' %}" class="btn btn-lg">Cancel</a>
     </form>
-</div> -->
+</div>
+
+{% endblock %}
