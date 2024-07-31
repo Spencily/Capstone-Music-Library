@@ -4,7 +4,7 @@
 
 {% block css %}
 <link rel="stylesheet" href="{% static 'library/css/library.css' %}">
-{% endblock %} 
+{% endblock %}
 
 {% block content %}
 
@@ -34,7 +34,10 @@
                 {% if user.is_superuser %}
                 <td>
                     <a href="{% url 'piece_edit' piece.id %}"> Edit </a>
-                    <a href="{% url 'piece_delete' piece.id %}"> Delete </a>
+                    <form method="post" action="{% url 'piece_delete' piece.id %}" class="delete-form">
+                        {% csrf_token %}
+                        <button type="button" class="btn btn-danger delete-btn">Delete</button>
+                    </form>
                 </td>
                 {% endif %}
             </tr>
@@ -44,11 +47,21 @@
 
     {% if user.is_superuser %}
     <div class="col form">
+        {% if current_url == 'piece_edit' %}
+        <h2> Edit Piece </h2>
+        {% else %}
         <h2> Add a New Piece </h2>
+        {% endif %}
         <form id="pieceForm" method="post">
             {{ piece_form | crispy }}
             {% csrf_token %}
-            <button id="submitButton" type="submit" class="btn btn-lg">Submit</button>
+            <button id="submitButton" type="submit" class="btn btn-lg">
+                {% if current_url == 'piece_edit' %}
+                Update
+                {% else %}
+                Submit
+                {% endif %}
+            </button>
             <a href="{% url 'library' %}" class="btn btn-lg">Cancel</a>
         </form>
     </div>
