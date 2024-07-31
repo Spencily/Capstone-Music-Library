@@ -41,7 +41,6 @@
         <h2> Your Setlist Here</h2>
         {% else %}
         <h2> {{ setlist.title }} </h2>
-        {% endif %}
         <table>
             <tr>
                 <th> Piece </th>
@@ -51,7 +50,7 @@
                 <th> March Card Location </th>
                 <th> Band Arrangement </th>
             </tr>
-            {% for piece in pieces %}
+            {% for piece in setlist.pieces.all %}
             <tr>
                 <td> {{ piece.title }} </td>
                 <td> {{ piece.composer }} </td>
@@ -62,6 +61,7 @@
             </tr>
             {% endfor %}
         </table>
+        {% endif %}
     </div>
 
 </div>

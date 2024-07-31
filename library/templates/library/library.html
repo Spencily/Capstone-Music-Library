@@ -31,7 +31,7 @@
                 <td> {{ piece.genre }} </td>
                 <td> {{ piece.mc_location }} </td>
                 <td> {{ piece.band_arrangement }} </td>
-                {% if user.is_superuser %}
+                {% if user.is_staff %}
                 <td>
                     <a href="{% url 'piece_edit' piece.id %}" class="btn btn-outline-warning"> Edit </a>
                     <form method="post" action="{% url 'piece_delete' piece.id %}" class="delete-form">
@@ -45,7 +45,7 @@
         </table>
     </div>
 
-    {% if user.is_superuser %}
+    {% if user.is_staff %}
     <div class="col form">
         {% if current_url == 'piece_edit' %}
         <h2> Edit Piece </h2>

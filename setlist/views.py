@@ -20,11 +20,10 @@ def setlist_list(request):
 def setlist_view(request, pk):
     setlist = get_object_or_404(Setlist, pk=pk)
     setlists = Setlist.objects.filter(created_by=request.user)
-    pieces = Piece.objects.filter(setlist=setlist)
     return render(
         request,
         "setlist/setlist.html",
-        {"setlist": setlist, "setlists": setlists, "pieces": pieces},
+        {"setlist": setlist, "setlists": setlists},
     )
 
 
