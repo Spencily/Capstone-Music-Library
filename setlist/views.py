@@ -13,7 +13,7 @@ from .models import Setlist
 # Create your views here.
 @login_required
 def setlist_list(request):
-    setlists = Setlist.objects.filter(created_by=request.user)
+    setlists = Setlist.objects.order_by("title").filter(created_by=request.user)
     return render(request, "setlist/setlist.html", {"setlists": setlists})
 
 

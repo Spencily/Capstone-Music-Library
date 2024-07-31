@@ -8,5 +8,9 @@ class Setlist(models.Model):
     description = models.TextField(blank=True)
     pieces = models.ManyToManyField('library.Piece')
 
+    def save(self, *args, **kwargs):
+        self.title = self.title.capitalize()
+        super(Setlist, self).save(*args, **kwargs)
+
     def __str__(self):
         return self.title
