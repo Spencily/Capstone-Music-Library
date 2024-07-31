@@ -13,13 +13,13 @@ from .models import Setlist
 # Create your views here.
 @login_required
 def setlist_list(request):
-    setlists = Setlist.objects.all()
+    setlists = Setlist.objects.filter(created_by=request.user)
     return render(request, "setlist/setlist.html", {"setlists": setlists})
 
 
 def setlist_view(request, pk):
     setlist = get_object_or_404(Setlist, pk=pk)
-    setlists = Setlist.objects.all()
+    setlists = Setlist.objects.filter(created_by=request.user)
     pieces = Piece.objects.filter(setlist=setlist)
     return render(
         request,
@@ -32,6 +32,8 @@ def setlist_add(request):
     if request.method == "POST":
         setlist_form = SetForm(request.POST)
         if setlist_form.is_valid():
+            setlist_form = setlist_form.save(commit=False)
+            setlist_form.created_by = request.user
             setlist_form.save()
             messages.success(request, "New Setlist Added")
             return HttpResponseRedirect(reverse("setlist"))

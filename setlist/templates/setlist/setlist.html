@@ -16,9 +16,7 @@
             <div class="col-6">
                 <a href="{% url 'setlist_add' %}" class="btn btn-outline-success"> Create a Setlist </a>
             </div>
-
         </div>
-
 
         {% for setlist in setlists %}
         <div class="row g-0">
@@ -39,7 +37,11 @@
     </div>
 
     <div class="col-8 setlist_view">
+        {% if current_url == setlist %}
+        <h2> Your Setlist Here</h2>
+        {% else %}
         <h2> {{ setlist.title }} </h2>
+        {% endif %}
         <table>
             <tr>
                 <th> Piece </th>
