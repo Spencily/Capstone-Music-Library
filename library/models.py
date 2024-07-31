@@ -13,5 +13,14 @@ class Piece(models.Model):
     mc_location = models.CharField(max_length=100, blank=True)
     band_arrangement = models.CharField(max_length=20, choices=BandArrangement.choices)
 
+    def save(self, *args, **kwargs):
+        self.title = self.title.capitalize()
+        self.composer = self.composer.capitalize()
+        self.arranged_by = self.arranged_by.capitalize()
+        self.genre = self.genre.capitalize()
+        self.mc_location = self.mc_location.capitalize()
+
+        super(Piece, self).save(*args, **kwargs)
+
     def __str__(self):
         return self.title

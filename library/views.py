@@ -18,7 +18,7 @@ def library_view(request):
             messages.success(request, "New Piece Added")
             return HttpResponseRedirect(reverse("library"))
 
-    pieces = Piece.objects.all()
+    pieces = Piece.objects.order_by("title").all()
     piece_form = PieceForm()
     context = {
         "pieces": pieces,
