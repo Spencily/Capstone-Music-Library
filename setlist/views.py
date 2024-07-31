@@ -4,6 +4,8 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.urls import reverse
 
+from library.models import Piece
+
 from .forms import SetForm
 from .models import Setlist
 
@@ -27,8 +29,9 @@ def setlist_list(request):
 def setlist_view(request, pk):
     setlist = get_object_or_404(Setlist, pk=pk)
     setlists = Setlist.objects.all()
+    pieces = Piece.objects.filter(setlist=setlist)
     return render(
-        request, "setlist/setlist.html", {"setlist": setlist, "setlists": setlists}
+        request, "setlist/setlist.html", {"setlist": setlist, "setlists": setlists, "pieces": pieces}
     )
 
 

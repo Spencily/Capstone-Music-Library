@@ -33,8 +33,28 @@
         </table>
     </div>
 
-    <div class="col-8">
+    <div class="col-8 setlist_view">
         <h2> {{ setlist.title }} </h2>
+        <table>
+            <tr>
+                <th> Piece </th>
+                <th> Composer </th>
+                <th> Arranged By </th>
+                <th> Genre </th>
+                <th> March Card Location </th>
+                <th> Band Arrangement </th>
+            </tr>
+            {% for piece in pieces %}
+            <tr>
+                <td> {{ piece.title }} </td>
+                <td> {{ piece.composer }} </td>
+                <td> {{ piece.arranged_by }} </td>
+                <td> {{ piece.genre }} </td>
+                <td> {{ piece.mc_location }} </td>
+                <td> {{ piece.band_arrangement }} </td>
+            </tr>
+            {% endfor %}
+        </table>
     </div>
 
 </div>
