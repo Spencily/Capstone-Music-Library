@@ -25,7 +25,7 @@
             </tr>
             {% for piece in pieces %}
             <tr>
-                <td> {{ piece.title }} </td>
+                <td><a href="{% url 'part_view' piece.id %}" >{{ piece.title }}</a></td>
                 <td> {{ piece.composer }} </td>
                 <td> {{ piece.arranged_by }} </td>
                 <td> {{ piece.genre }} </td>

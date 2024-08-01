@@ -1,4 +1,5 @@
 from django.db import models
+from cloudinary.models import CloudinaryField
 from django.core.validators import MinValueValidator, MaxValueValidator
 
 
@@ -27,13 +28,13 @@ class Piece(models.Model):
         return self.title
     
 
-class Parts(models.Model):
+class Part(models.Model):
     instrument = models.CharField(max_length=100)
     part_number = models.SmallIntegerField(default=0, validators=[MinValueValidator(0), MaxValueValidator(5)])
-    piece = models.ForeignKey(Piece, on_delete=models.CASCADE)
-    file = models.FileField(upload_to='parts/')
+    piece = models.ForeignKey(Piece, on_delete=models.CASCADE, related_name='parts')
+    pdf_file = CloudinaryField('pdf_file')
 
     def save(self, *args, **kwargs):
-        self.instrument = self.instrument.capitalize()
+        self.instrument = self.instrument.title()
 
-        super(Parts, self).save(*args, **kwargs)
+        super(Part, self).save(*args, **kwargs)

@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.urls import resolve, reverse
 
-from .forms import PieceForm
+from .forms import PartForm, PieceForm
 from .models import Piece
 
 
@@ -54,3 +54,20 @@ def piece_delete(request, pk):
         piece.delete()
         messages.success(request, "Deletion Successful")
     return HttpResponseRedirect(reverse("library"))
+
+
+def part_view(request, pk):
+    piece = get_object_or_404(Piece, pk=pk)
+
+    if request.method == "POST":
+        part_form = PartForm(request.POST)
+        part_form.instance.piece = piece
+        if part_form.is_valid():
+            part_form.save()
+            messages.success(request, "New Part Added")
+            return HttpResponseRedirect(reverse("part_view", args=[pk]))
+        context = {"piece": piece, "part_form": part_form}
+        return render(request, "library/parts.html", context)
+
+    context = {"piece": piece, "part_form": PartForm()}
+    return render(request, "library/parts.html", context)
