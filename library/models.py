@@ -1,5 +1,4 @@
 from django.db import models
-from cloudinary.models import CloudinaryField
 from django.core.validators import MinValueValidator, MaxValueValidator
 from gdstorage.storage import GoogleDriveStorage
 
@@ -36,6 +35,10 @@ class Part(models.Model):
     part_number = models.SmallIntegerField(default=0, validators=[MinValueValidator(0), MaxValueValidator(5)])
     piece = models.ForeignKey(Piece, on_delete=models.CASCADE, related_name='parts')
     pdf_file = models.FileField(upload_to='pdf/', storage=gd_storage)
+
+    class Meta:
+        unique_together = ['instrument', 'part_number']
+        ordering = ['instrument', 'part_number']
 
     def save(self, *args, **kwargs):
         self.instrument = self.instrument.title()

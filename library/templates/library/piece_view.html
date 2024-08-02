@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'library/css/library.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="row g-0">
+    <h2> Parts for {{ piece.title }} </h2>
+    <div class="col-4">
+        <table>
+            <tr>
+                <th> Instrument </th>
+                <th> Part Number </th>
+                <th> PDF </th>
+                {% if user.is_staff %}
+                <th> Actions </th>
+                {% endif %}
+            </tr>
+            {% for part in piece.parts.all %}
+            <tr>
+                <td> {{ part.instrument }} </td>
+                <td> {{ part.part_number }} </td>
+                <td>
+                    <a href="{% url 'part_view' part.id %}">View</a>
+                    <a href="{% url 'part_pdf_view' part.id %}" download>Download</a>
+                </td>
+                {% if user.is_staff %}
+                <td>
+                    <a href="{% url 'part_edit' part.id %}" class="btn btn-outline-warning"> Edit </a>
+                    <form method="post" action="{% url 'part_delete' part.id %}" class="delete-form">
+                        {% csrf_token %}
+                        <button type="button" class="btn btn-outline-danger delete-btn">Delete</button>
+                    </form>
+                {% endif %}
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+    <div class="col pdf_viewer">
+        {% if part %}
+        <h2>Part: {{part.instrument}} {{part.part_number}} </h2>
+        <embed src="{% url 'part_pdf_view' part.id %}#toolbar=0&navpanes=0&scrollbar=0" type="application/pdf" height="700px" width="500">
+        {% endif %}
+    </div>
+
+    {% if user.is_staff %}
+    <div class="col-2 form">
+        {% if current_url == 'part_edit' %}
+        <h2> Edit Part </h2>
+        {% else %}
+        <h2> Add a New Part </h2>
+        {% endif %}
+        <form id="partForm" method="post" enctype="multipart/form-data">
+            {{ part_form | crispy }}
+            {% csrf_token %}
+            <button id="submitButton" type="submit" class="btn btn-lg">
+                {% if current_url == 'part_edit' %}
+                Update
+                {% else %}
+                Submit
+                {% endif %}
+            </button>
+            <a href="{% url 'piece_view' piece.id %}" class="btn btn-lg">Cancel</a>
+        </form>
+    </div>
+    {% endif %}
+</div>
+
+{% endblock %}
