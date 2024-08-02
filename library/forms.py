@@ -1,6 +1,5 @@
 from .models import Part, Piece
 from django import forms
-from cloudinary.forms import CloudinaryFileField
 
 class PieceForm(forms.ModelForm):
     class Meta:
@@ -9,7 +8,7 @@ class PieceForm(forms.ModelForm):
 
 
 class PartForm(forms.ModelForm):
+    pdf_file = forms.FileField(label='Select a file')
     class Meta:
         model = Part
         fields = ['instrument', 'part_number', 'pdf_file']
-        pdf_file = CloudinaryFileField

@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "gdstorage",
     "cloudinary_storage",
     "cloudinary",
     "django.contrib.sites",
@@ -152,6 +153,10 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
 ]
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
+
+# Google Drive Storage
+GOOGLE_DRIVE_STORAGE_JSON_KEY_FILE = os.path.join(BASE_DIR, "creds.json")
+GOOGLE_DRIVE_STORAGE_MEDIA_ROOT = "Dettingen Music Library/Uploads"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field

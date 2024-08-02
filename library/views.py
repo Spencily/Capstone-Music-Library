@@ -60,7 +60,8 @@ def part_view(request, pk):
     piece = get_object_or_404(Piece, pk=pk)
 
     if request.method == "POST":
-        part_form = PartForm(request.POST)
+        part_form = PartForm(request.POST, request.FILES)
+        print(request.FILES)
         part_form.instance.piece = piece
         if part_form.is_valid():
             part_form.save()

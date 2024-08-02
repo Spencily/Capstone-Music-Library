@@ -36,7 +36,7 @@
         {% else %}
         <h2> Add a New Part </h2>
         {% endif %}
-        <form id="partForm" method="post">
+        <form id="partForm" method="post" enctype="multipart/form-data">
             {{ part_form | crispy }}
             {% csrf_token %}
             <button id="submitButton" type="submit" class="btn btn-lg">

@@ -1,6 +1,9 @@
 from django.db import models
 from cloudinary.models import CloudinaryField
 from django.core.validators import MinValueValidator, MaxValueValidator
+from gdstorage.storage import GoogleDriveStorage
+
+gd_storage = GoogleDriveStorage()
 
 
 class Piece(models.Model):
@@ -32,7 +35,7 @@ class Part(models.Model):
     instrument = models.CharField(max_length=100)
     part_number = models.SmallIntegerField(default=0, validators=[MinValueValidator(0), MaxValueValidator(5)])
     piece = models.ForeignKey(Piece, on_delete=models.CASCADE, related_name='parts')
-    pdf_file = CloudinaryField('pdf_file')
+    pdf_file = models.FileField(upload_to='pdf/', storage=gd_storage)
 
     def save(self, *args, **kwargs):
         self.instrument = self.instrument.title()
