@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1> {{ setlist.title }} </h1>
+    <table>
+        <tr>
+            <th> Piece </th>
+            <th> Composer </th>
+            <th> Arranged By </th>
+            <th> Genre </th>
+            <th> March Card Location </th>
+            <th> Band Arrangement </th>
+        </tr>
+        {% for piece in setlist.pieces.all %}
+        <tr>
+            <td> {{ piece.title }} </td>
+            <td> {{ piece.composer }} </td>
+            <td> {{ piece.arranged_by }} </td>
+            <td> {{ piece.genre }} </td>
+            <td> {{ piece.mc_location }} </td>
+            <td> {{ piece.band_arrangement }} </td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+
+</html>

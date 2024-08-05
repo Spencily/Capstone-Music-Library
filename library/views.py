@@ -6,7 +6,7 @@ from django.urls import resolve, reverse
 from django.views.decorators.clickjacking import xframe_options_exempt
 from django.core.paginator import Paginator
 
-from library.utilities import render_to_pdf
+from dettingen.utilities import render_to_pdf
 
 from .forms import PartForm, PieceForm, SearchForm
 from .models import Part, Piece

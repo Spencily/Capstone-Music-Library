@@ -1,10 +1,11 @@
-from django.http import HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.urls import resolve, reverse
 
 from library.models import Piece
+from dettingen.utilities import render_to_pdf
 
 from .forms import SetForm
 from .models import Setlist
@@ -25,6 +26,13 @@ def setlist_view(request, pk):
         "setlist/setlist.html",
         {"setlist": setlist, "setlists": setlists},
     )
+
+
+def setlist_print_view(request, id):
+    setlist = get_object_or_404(Setlist, pk=id)
+    context = {'setlist': setlist}
+    pdf = render_to_pdf("setlist/setlist_print.html", context)
+    return HttpResponse(pdf, content_type="application/pdf")
 
 
 def setlist_add(request):

@@ -23,14 +23,17 @@
             <div class="col-6">
                 <a href="{% url 'setlist_view' setlist.id %}"> {{setlist.title}}</a>
             </div>
-            <div class="col-3">
+            <div class="col-2">
                 <a href="{% url 'setlist_edit' setlist.id %}" class="btn btn-outline-warning"> Edit </a>
             </div>
-            <div class="col-3">
+            <div class="col-2">
                 <form method="post" action="{% url 'setlist_delete' setlist.id %}" class="delete-form">
                     {% csrf_token %}
                     <button type="button" class="btn btn-outline-danger delete-btn">Delete</button>
                 </form>
+            </div>
+            <div class="col-2">
+                <a href="{% url 'setlist_print' setlist.id %}" class="btn btn-outline-info" target="_blank"> Print </a>
             </div>
         </div>
         {% endfor %}
