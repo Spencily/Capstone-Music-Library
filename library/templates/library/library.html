@@ -45,8 +45,18 @@
                 {% endif %}
             </tr>
             {% endfor %}
-
         </table>
+        <div class="pagination">
+            {% if pieces.has_previous %}
+            <a href="?page=1">&laquo; First</a>
+            <a href="?page={{ pieces.previous_page_number }}">Previous</a>
+            {% endif %}
+            <span class="current">Page {{ pieces.number }} of {{ pieces.paginator.num_pages }}.</span>
+            {% if pieces.has_next %}
+            <a href="?page={{ pieces.next_page_number }}">Next</a>
+            <a href="?page={{ pieces.paginator.num_pages }}">Last &raquo;</a>
+            {% endif %}
+        </div>
     </div>
 
     {% if user.is_staff %}

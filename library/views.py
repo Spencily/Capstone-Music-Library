@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.urls import resolve, reverse
 from django.views.decorators.clickjacking import xframe_options_exempt
+from django.core.paginator import Paginator
 
 from .forms import PartForm, PieceForm, SearchForm
 from .models import Part, Piece
@@ -33,11 +34,15 @@ def library_view(request):
 
     pieces = queryset
     piece_form = PieceForm()
+    paginator = Paginator(pieces, 10)
+    page_number = request.GET.get("page")
+    page_obj = paginator.get_page(page_number)
     context = {
-        "pieces": pieces,
+        "pieces": page_obj,
         "piece_form": piece_form,
         "search_form": search_form,
         "current_url": resolve(request.path_info).url_name,
+
     }
     return render(request, "library/library.html", context)
 
