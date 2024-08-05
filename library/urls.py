@@ -3,7 +3,8 @@ from django.urls import path
 
 urlpatterns = [
     #Library Page - CRUD for Pieces
-    path('', views.library_view, name='library'), 
+    path('', views.library_view, name='library'),
+    path('print', views.library_print_view, name='library_print'),
     path('piece/<int:pk>', views.piece_view, name='piece_view'),
     path('piece/<int:pk>/edit', views.piece_edit, name='piece_edit'),
     path('piece/<int:pk>/delete', views.piece_delete, name='piece_delete'),

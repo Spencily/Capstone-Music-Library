@@ -11,6 +11,7 @@
 <div class="row g-0">
     <div class="col-8 library">
         <h2> Our Library </h2>
+        <a href="{% url 'library_print' %}" class="btn btn-outline-info" target="_blank">View PDF</a>
         <form method="get" action="{% url 'library' %}">
             {% crispy search_form %}
         </form>

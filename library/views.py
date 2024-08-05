@@ -6,6 +6,8 @@ from django.urls import resolve, reverse
 from django.views.decorators.clickjacking import xframe_options_exempt
 from django.core.paginator import Paginator
 
+from library.utilities import render_to_pdf
+
 from .forms import PartForm, PieceForm, SearchForm
 from .models import Part, Piece
 
@@ -45,6 +47,13 @@ def library_view(request):
 
     }
     return render(request, "library/library.html", context)
+
+
+def library_print_view(request):
+    pieces = Piece.objects.all()
+    context = {"pieces": pieces}
+    pdf = render_to_pdf("library/library_print.html", context)
+    return HttpResponse(pdf, content_type='application/pdf')
 
 
 def piece_edit(request, pk):
