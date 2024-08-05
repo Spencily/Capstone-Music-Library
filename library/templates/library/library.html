@@ -11,6 +11,9 @@
 <div class="row g-0">
     <div class="col-8 library">
         <h2> Our Library </h2>
+        <form method="get" action="{% url 'library' %}">
+            {% crispy search_form %}
+        </form>
         <table>
             <tr>
                 <th> Piece </th>
@@ -25,7 +28,7 @@
             </tr>
             {% for piece in pieces %}
             <tr>
-                <td><a href="{% url 'piece_view' piece.id %}" >{{ piece.title }}</a></td>
+                <td><a href="{% url 'piece_view' piece.id %}">{{ piece.title }}</a></td>
                 <td> {{ piece.composer }} </td>
                 <td> {{ piece.arranged_by }} </td>
                 <td> {{ piece.genre }} </td>
@@ -42,6 +45,7 @@
                 {% endif %}
             </tr>
             {% endfor %}
+
         </table>
     </div>
 

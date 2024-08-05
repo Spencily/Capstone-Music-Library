@@ -5,7 +5,7 @@ from django.contrib import messages
 from django.urls import resolve, reverse
 from django.views.decorators.clickjacking import xframe_options_exempt
 
-from .forms import PartForm, PieceForm
+from .forms import PartForm, PieceForm, SearchForm
 from .models import Part, Piece
 
 
@@ -22,11 +22,21 @@ def library_view(request):
             messages.success(request, "New Piece Added")
             return HttpResponseRedirect(reverse("library"))
 
-    pieces = Piece.objects.order_by("title").all()
+    queryset = Piece.objects.order_by("title").all()
+    search_form = SearchForm(request.GET or None)
+    if search_form.is_valid():
+        query = search_form.cleaned_data.get("query")
+        filter_value = search_form.cleaned_data.get("filter")
+
+        if query:
+            queryset = queryset.filter(**{filter_value + "__icontains": query})
+
+    pieces = queryset
     piece_form = PieceForm()
     context = {
         "pieces": pieces,
         "piece_form": piece_form,
+        "search_form": search_form,
         "current_url": resolve(request.path_info).url_name,
     }
     return render(request, "library/library.html", context)
