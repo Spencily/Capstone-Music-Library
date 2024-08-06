@@ -31,6 +31,7 @@ class SearchForm(forms.Form):
     filter = forms.ChoiceField(
         label="Filter",
         choices=[
+            ("", "..."),
             ("title", "Title"),
             ("composer", "Composer"),
             ("genre", "Genre"),

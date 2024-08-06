@@ -20,6 +20,12 @@ h6 {
     background-color: #b01a00;
 }
 
+.header h1 {
+    font-size: 45px;
+    margin: 0;
+    text-align: center;
+}
+
 .nav {
     background-color: green;
     padding: 0;
@@ -50,6 +56,7 @@ footer {
     width: 100%;
     background-color: black;
     text-align: center;
+    font-size: 20px;
     margin: 0;
 }
 
@@ -59,3 +66,20 @@ footer {
 }
 
 /* Media Query */
+@media screen and (max-width: 767px) {
+    .nav {
+        justify-content: center;
+        border: outset rgb(41, 82, 36);
+    }
+
+    .nav-item {
+        border: none;
+    }
+}
+
+@media screen and (min-width: 1024px) {
+    .header h1 {
+        font-size: 65px;
+    }
+    
+}
