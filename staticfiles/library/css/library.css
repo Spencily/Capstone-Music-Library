@@ -1,4 +1,4 @@
-/* Table */
+/* Library Table */
 .library {
     margin: 50px;
 }
@@ -15,20 +15,37 @@ th {
     text-align: center;
 }
 
-/* Piece Form */
-
-.form {
-    margin-top: 50px;
-    margin-right: 50px;
-    max-width: 400px;
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
 }
 
-@media (max-width: 1023px) {
+/* Piece Form */
+.form {
+    margin: 50px;
+    max-width: 200px;
+}
+
+/* Media Query */
+@media screen and (max-width:767px) {
+
     .library {
-        margin: 0;
+        margin: 15px 0px;
+    }
+
+    .table {
+        overflow-x: scroll;
     }
 
     .form {
-        margin: 0;
+        margin: 15px 0px;
+    }
+
+}
+
+@media screen and (max-width: 1200px) {
+    .library {
+        max-width: 600px;
     }
 }
