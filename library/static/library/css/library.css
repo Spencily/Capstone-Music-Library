@@ -1,8 +1,22 @@
-/* Library Table */
+/* Library */
 .library {
     margin: 50px;
 }
 
+/* Search Bar */
+.search-bar {
+    margin: 0px;
+}
+
+.search {
+    padding-left: 0px;
+}
+
+.filter {
+    padding-right: 0px;
+}
+
+/* Library Table */
 tr {
     border-bottom: 1px solid #ddd;
 }
@@ -24,7 +38,7 @@ th {
 /* Piece Form */
 .form {
     margin: 50px;
-    max-width: 200px;
+    max-width: 500px;
 }
 
 /* Media Query */

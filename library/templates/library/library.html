@@ -10,7 +10,7 @@
 
 <div class="row g-0">
     <div class="col-sm-8 library">
-        <div class="row g-0 search-bar">
+        <div class="row g-0 heading">
             <div class="col-sm-10">
                 <h2> Our Library </h2>
             </div>
@@ -70,7 +70,7 @@
     </div>
 
     {% if user.is_staff %}
-    <div class="col-sm-4 form">
+    <div class="col form">
         {% if current_url == 'piece_edit' %}
         <h2> Edit Piece </h2>
         {% else %}

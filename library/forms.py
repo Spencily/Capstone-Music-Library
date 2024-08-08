@@ -52,13 +52,13 @@ class SearchForm(forms.Form):
                             "submit", "Search", css_class="btn-outline-primary"
                         ),
                     ),
-                    css_class="col-8",
+                    css_class="col-8 search",
                 ),
                 Div(
                     "filter",
-                    css_class="col-3",
+                    css_class="col filter",
                 ),
-                css_class="row",
+                css_class="row search-bar",
             ),
         )
 
