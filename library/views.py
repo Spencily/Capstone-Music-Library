@@ -64,6 +64,15 @@ def piece_edit(request, pk):
             piece_form.save()
             messages.success(request, "Update Successful")
             return HttpResponseRedirect(reverse("library"))
+        
+    queryset = Piece.objects.order_by("title").all()
+    search_form = SearchForm(request.GET or None)
+    if search_form.is_valid():
+        query = search_form.cleaned_data.get("query")
+        filter_value = search_form.cleaned_data.get("filter")
+
+        if query:
+            queryset = queryset.filter(**{filter_value + "__icontains": query})
 
     piece = get_object_or_404(Piece, pk=pk)
     piece_form = PieceForm(instance=piece)
@@ -71,6 +80,7 @@ def piece_edit(request, pk):
     context = {
         "pieces": pieces,
         "piece_form": piece_form,
+        "search_form": search_form,
         "current_url": resolve(request.path_info).url_name,
     }
     return render(request, "library/library.html", context)
