@@ -5,6 +5,7 @@ from django.contrib import messages
 from django.urls import resolve, reverse
 from django.views.decorators.clickjacking import xframe_options_exempt
 from django.core.paginator import Paginator
+from django.db.models import Q
 
 from dettingen.utilities import render_to_pdf
 
@@ -32,7 +33,15 @@ def library_view(request):
         filter_value = search_form.cleaned_data.get("filter")
 
         if query:
-            queryset = queryset.filter(**{filter_value + "__icontains": query})
+            if filter_value == "":
+                queryset = queryset.filter(
+                    Q(title__icontains=query) |
+                    Q(composer__icontains=query) |
+                    Q(genre__icontains=query) |
+                    Q(band_arrangement__icontains=query)
+                )
+            else:
+                queryset = queryset.filter(**{filter_value + "__icontains": query})
 
     pieces = queryset
     piece_form = PieceForm()
@@ -44,7 +53,6 @@ def library_view(request):
         "piece_form": piece_form,
         "search_form": search_form,
         "current_url": resolve(request.path_info).url_name,
-
     }
     return render(request, "library/library.html", context)
 
@@ -53,7 +61,7 @@ def library_print_view(request):
     pieces = Piece.objects.all()
     context = {"pieces": pieces}
     pdf = render_to_pdf("library/library_print.html", context)
-    return HttpResponse(pdf, content_type='application/pdf')
+    return HttpResponse(pdf, content_type="application/pdf")
 
 
 def piece_edit(request, pk):
@@ -64,7 +72,7 @@ def piece_edit(request, pk):
             piece_form.save()
             messages.success(request, "Update Successful")
             return HttpResponseRedirect(reverse("library"))
-        
+
     queryset = Piece.objects.order_by("title").all()
     search_form = SearchForm(request.GET or None)
     if search_form.is_valid():
