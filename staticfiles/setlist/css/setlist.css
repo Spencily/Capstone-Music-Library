@@ -1,0 +1,42 @@
+a {
+    text-decoration: none;
+}
+
+.setlists {
+    margin: 50px;
+}
+
+.setlists a {
+    font-size: 20px;
+}
+
+.setlist-view {
+    margin: 50px;
+}
+
+.set-table {
+    overflow-x: scroll;
+}
+
+tr {
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    background-color: #f2f2f2;
+    border: 1px solid #ddd;
+    padding: 10px;
+    column-width: 100px;
+    text-align: center;
+}
+
+/* Media Query */
+@media (max-width: 1171px) {
+    .setlists {
+        margin: 20px 0px;
+    }
+
+    .setlist-view {
+        margin: 20px 0px;
+    }
+}

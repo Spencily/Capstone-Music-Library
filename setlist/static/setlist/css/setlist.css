@@ -1,10 +1,13 @@
 a {
-    font-size: 20px;
     text-decoration: none;
 }
 
 .setlists {
     margin: 50px;
+}
+
+.setlists a {
+    font-size: 20px;
 }
 
 .setlist-view {

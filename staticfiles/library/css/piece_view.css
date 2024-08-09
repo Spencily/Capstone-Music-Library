@@ -1,0 +1,49 @@
+/* Part List */
+.part-list {
+    margin: 50px;
+}
+
+tr {
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    background-color: #f2f2f2;
+    border: 1px solid #ddd;
+    padding: 10px;
+    column-width: 100px;
+    text-align: center;
+}
+
+/* PDF Viewer */
+.pdf-viewer {
+    max-width: 800px;
+    margin: 50px;
+}
+
+.pdf {
+    width: 100%;
+    height: 800px;
+}
+
+/* Part Form */
+.part-form {
+    margin: 50px;
+}
+
+/* Media Query */
+@media screen and (max-width:767px) {
+
+    .part-list {
+        margin: 15px 0px;
+    }
+
+    .pdf-viewer {
+        margin: 15px 0px;
+    }
+
+    .part-form {
+        margin: 15px 0px;
+    }
+
+}
