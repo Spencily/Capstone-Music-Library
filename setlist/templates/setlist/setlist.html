@@ -8,7 +8,7 @@
 {% block content %}
 
 <div class="row g-0">
-    <div class="col-4 setlists">
+    <div class="col setlists">
         <div class="row g-0">
             <div class="col-6">
                 <h2> My Setlists </h2>
@@ -20,51 +20,52 @@
 
         {% for setlist in setlists %}
         <div class="row g-0">
-            <div class="col-6">
+            <div class="col-4">
                 <a href="{% url 'setlist_view' setlist.id %}"> {{setlist.title}}</a>
             </div>
-            <div class="col-2">
+            <div class="col">
                 <a href="{% url 'setlist_edit' setlist.id %}" class="btn btn-outline-warning"> Edit </a>
-            </div>
-            <div class="col-2">
-                <form method="post" action="{% url 'setlist_delete' setlist.id %}" class="delete-form">
+                <a href="{% url 'setlist_print' setlist.id %}" class="btn btn-outline-info" target="_blank"> Print </a>
+                <form method="post" action="{% url 'setlist_delete' setlist.id %}" class="d-inline delete-form">
                     {% csrf_token %}
                     <button type="button" class="btn btn-outline-danger delete-btn">Delete</button>
                 </form>
             </div>
-            <div class="col-2">
-                <a href="{% url 'setlist_print' setlist.id %}" class="btn btn-outline-info" target="_blank"> Print </a>
-            </div>
+
         </div>
         {% endfor %}
     </div>
 
-    <div class="col-8 setlist_view">
-        {% if current_url == setlist %}
-        <h2> Please Choose a Setlist</h2>
-        {% else %}
-        <h2> {{ setlist.title }} </h2>
-        <table>
-            <tr>
-                <th> Piece </th>
-                <th> Composer </th>
-                <th> Arranged By </th>
-                <th> Genre </th>
-                <th> March Card Location </th>
-                <th> Band Arrangement </th>
-            </tr>
-            {% for piece in setlist.pieces.all %}
-            <tr>
-                <td> {{ piece.title }} </td>
-                <td> {{ piece.composer }} </td>
-                <td> {{ piece.arranged_by }} </td>
-                <td> {{ piece.genre }} </td>
-                <td> {{ piece.mc_location }} </td>
-                <td> {{ piece.band_arrangement }} </td>
-            </tr>
-            {% endfor %}
-        </table>
-        {% endif %}
+    <div class="col-sm-7 setlist-view">
+        <div class="row g-0">
+            {% if current_url == setlist %}
+            <h2> Please Select a Setlist</h2>
+            {% else %}
+            <h2> {{ setlist.title }} </h2>
+        </div>
+        <div class="row g-0 set-table">
+            <table>
+                <tr>
+                    <th> Piece </th>
+                    <th> Composer </th>
+                    <th> Arranged By </th>
+                    <th> Genre </th>
+                    <th> March Card Location </th>
+                    <th> Band Arrangement </th>
+                </tr>
+                {% for piece in setlist.pieces.all %}
+                <tr>
+                    <td><a href="{% url 'piece_view' piece.id %}">{{ piece.title }}</a></td>
+                    <td> {{ piece.composer }} </td>
+                    <td> {{ piece.arranged_by }} </td>
+                    <td> {{ piece.genre }} </td>
+                    <td> {{ piece.mc_location }} </td>
+                    <td> {{ piece.band_arrangement }} </td>
+                </tr>
+                {% endfor %}
+            </table>
+            {% endif %}
+        </div>
     </div>
 
 </div>

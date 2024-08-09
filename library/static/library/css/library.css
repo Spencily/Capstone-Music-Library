@@ -3,6 +3,10 @@
     margin: 50px;
 }
 
+a {
+    text-decoration: none;
+}
+
 /* Search Bar */
 .search-bar {
     margin: 0px;
