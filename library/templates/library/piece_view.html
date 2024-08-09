@@ -3,14 +3,14 @@
 {% load crispy_forms_tags %}
 
 {% block css %}
-<link rel="stylesheet" href="{% static 'library/css/library.css' %}">
+<link rel="stylesheet" href="{% static 'library/css/piece_view.css' %}">
 {% endblock %}
 
 {% block content %}
 
 <div class="row g-0">
-    <h2> Parts for {{ piece.title }} </h2>
-    <div class="col-4">
+    <div class="col part-list">
+        <h2> Parts for {{ piece.title }} </h2>
         <table>
             <tr>
                 <th> Instrument </th>
@@ -35,21 +35,21 @@
                         {% csrf_token %}
                         <button type="button" class="btn btn-outline-danger delete-btn">Delete</button>
                     </form>
-                {% endif %}
+                    {% endif %}
             </tr>
             {% endfor %}
         </table>
     </div>
 
-    <div class="col pdf_viewer">
+    <div class="col-sm-6 pdf-viewer">
         {% if part %}
         <h2>Part: {{part.instrument}} {{part.part_number}} </h2>
-        <embed src="{% url 'part_pdf_view' part.id %}#toolbar=0&navpanes=0&scrollbar=0" type="application/pdf" height="700px" width="500">
+        <embed class="pdf" src="{% url 'part_pdf_view' part.id %}#toolbar=0&navpanes=0&scrollbar=0" type="application/pdf">
         {% endif %}
     </div>
 
     {% if user.is_staff %}
-    <div class="col-2 form">
+    <div class="col-sm-3 part-form">
         {% if current_url == 'part_edit' %}
         <h2> Edit Part </h2>
         {% else %}

@@ -126,7 +126,7 @@ def part_view(request, pk):
         if part_form.is_valid():
             part_form.save()
             messages.success(request, "New Part Added")
-            return HttpResponseRedirect(reverse("piece_view", args=[pk]))
+            return HttpResponseRedirect(reverse("part_view", args=[pk]))
 
     context = {"piece": part.piece, "part_form": part_form, "part": part}
     return render(request, "library/piece_view.html", context)
