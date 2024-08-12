@@ -13,9 +13,6 @@ from .forms import PartForm, PieceForm, SearchForm
 from .models import Part, Piece
 
 
-# Create your views here.
-
-
 # Library Page
 @login_required
 def library_view(request):
@@ -35,10 +32,10 @@ def library_view(request):
         if query:
             if filter_value == "":
                 queryset = queryset.filter(
-                    Q(title__icontains=query) |
-                    Q(composer__icontains=query) |
-                    Q(genre__icontains=query) |
-                    Q(band_arrangement__icontains=query)
+                    Q(title__icontains=query)
+                    | Q(composer__icontains=query)
+                    | Q(genre__icontains=query)
+                    | Q(band_arrangement__icontains=query)
                 )
             else:
                 queryset = queryset.filter(**{filter_value + "__icontains": query})
@@ -112,7 +109,6 @@ def piece_view(request, pk):
 
     if request.method == "POST":
         part_form = PartForm(request.POST, request.FILES)
-        print(request.FILES)
         part_form.instance.piece = piece
         if part_form.is_valid():
             part_form.save()
@@ -129,7 +125,6 @@ def part_view(request, pk):
 
     if request.method == "POST":
         part_form = PartForm(request.POST, request.FILES)
-        print(request.FILES)
         part_form.instance.piece = part.piece
         if part_form.is_valid():
             part_form.save()
