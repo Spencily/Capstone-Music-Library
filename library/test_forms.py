@@ -42,8 +42,24 @@ class TestPartForm(TestCase):
         print(part_form.errors)
         self.assertTrue(part_form.is_valid(), "Form is not valid")
 
-    def test_form_is_invalid(self):
-        part_form = PartForm({"piece": "Test Piece"})
+    def test_form_type_invalid(self):
+        part_form = PartForm(
+            {
+                "piece": "Invalid",
+                "part_number": "1",
+                "pdf_file": SimpleUploadedFile(
+                    "test.pdf", b"file_content", content_type="image/png"
+                ),
+            }
+        )
+        self.assertFalse(part_form.is_valid(), "Form is valid")
+
+    def test_form_missing_fields(self):
+        part_form = PartForm({})
+        self.assertFormError(part_form, "instrument", "This field is required.")
+        self.assertFormError(part_form, "part_number", "This field is required.")
+        self.assertFormError(part_form, "pdf_file", "This field is required.")
+
         self.assertFalse(part_form.is_valid(), "Form is valid")
 
 
