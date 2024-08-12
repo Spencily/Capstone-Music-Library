@@ -4,6 +4,8 @@ from .forms import PieceForm, PartForm, SearchForm
 
 
 class TestPieceForm(TestCase):
+
+    """Tests to see if the piece form is valid"""
     def test_form_is_valid(self):
         piece_form = PieceForm(
             {
@@ -17,6 +19,7 @@ class TestPieceForm(TestCase):
         )
         self.assertTrue(piece_form.is_valid(), "Form is not valid")
 
+    """Tests to see if the form is invalid through missing fields"""
     def test_form_missing_fields(self):
         piece_form = PieceForm({})
         self.assertFormError(piece_form, "title", "This field is required.")
@@ -27,6 +30,7 @@ class TestPieceForm(TestCase):
 
 
 class TestPartForm(TestCase):
+    """Tests to see if the part form is valid"""
     def test_form_is_valid(self):
         file_data = {
             "pdf_file": SimpleUploadedFile(
@@ -42,6 +46,7 @@ class TestPartForm(TestCase):
         print(part_form.errors)
         self.assertTrue(part_form.is_valid(), "Form is not valid")
 
+    """Tests to see if the form is invalid through invalid form type"""
     def test_form_type_invalid(self):
         part_form = PartForm(
             {
@@ -54,6 +59,7 @@ class TestPartForm(TestCase):
         )
         self.assertFalse(part_form.is_valid(), "Form is valid")
 
+    """Tests to see if the form is invalid through missing fields"""
     def test_form_missing_fields(self):
         part_form = PartForm({})
         self.assertFormError(part_form, "instrument", "This field is required.")
@@ -64,10 +70,12 @@ class TestPartForm(TestCase):
 
 
 class TestSearchForm(TestCase):
+    """Tests to see if the search form is valid"""
     def test_form_is_valid(self):
         search_form = SearchForm({"query": "Test Search"})
         self.assertTrue(search_form.is_valid(), "Form is not valid")
 
+    """Tests to see if the form is invalid through invalid choice"""
     def test_form_is_invalid(self):
         search_form = SearchForm(
             {
