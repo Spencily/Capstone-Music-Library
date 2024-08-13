@@ -5,9 +5,10 @@ from django.test import TestCase
 from .forms import PieceForm, PartForm, SearchForm
 from .models import Piece, Part
 
-#Library Views
-class TestLibraryPrintView(TestCase):
-    """ Test the library print view and context """
+
+class TestPieceView(TestCase):
+    """Test the piece view and context"""
+
     def setUp(self):
         self.user = User.objects.create_user(
             username="testuser", email="test@test.com", password="testpassword"
@@ -18,47 +19,54 @@ class TestLibraryPrintView(TestCase):
             arranged_by="Test Arranger",
             genre="Test Genre",
             mc_location="Test Location",
-            band_arrangement="Test Band Arrangement",
+            band_arrangement="Flexi-band",
         )
         self.piece.save()
 
-    def test_library_print_view(self):
-        self.client.login(username="testuser", password="testpassword")
-        response = self.client.get(reverse("library_print"))
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "library/library_print.html")
-        self.assertIn(self.piece, response.context["pieces"])
-        self.client.logout()
-
-
-class TestPieceDeleteView(TestCase):
-    """ Test the piece delete view """
-    def setUp(self):
-        self.user = User.objects.create_user(
-            username="testuser", email="test@test.com", password="testpassword")
-        self.piece = Piece(
-            title="Test Title",
-            composer="Test Composer",
-            arranged_by="Test Arranger",
-            genre="Test Genre",
-            mc_location="Test Location",
-            band_arrangement="Test Band Arrangement",
+        self.part = Part(
+            piece=self.piece,
+            instrument="Test Instrument",
+            part_number=1,
+            pdf_file=SimpleUploadedFile(
+                "test.pdf", b"file_content", content_type="application/pdf"
+            ),
         )
-        self.piece.save()
+        self.part.save()
 
-    def test_piece_delete_view(self):
+    def test_piece_view_upload_part(self):
+        """Test the piece view with a new part upload"""
         self.client.login(username="testuser", password="testpassword")
         response = self.client.post(
-            reverse("piece_delete", args=[self.piece.id]), follow=True
+            reverse("piece_view", args=[self.part.id]),
+            {
+                "instrument": "Test Instrument",
+                "part_number": 2,
+                "pdf_file": SimpleUploadedFile(
+                    "test.pdf", b"file_content", content_type="application/pdf"
+                ),
+            },
         )
+        self.assertRedirects(
+            response,
+            reverse("piece_view", args=[self.part.id]),
+            status_code=302,
+            target_status_code=200,
+            fetch_redirect_response=True,
+        )
+        part = Part.objects.get(pk=2)
+
+        response = self.client.get(reverse("piece_view", args=[self.part.id]))
         self.assertEqual(response.status_code, 200)
-        with self.assertRaises(Piece.DoesNotExist):
-            Piece.objects.get(pk=self.piece.id)
+        self.assertTemplateUsed(response, "library/piece_view.html")
+        self.assertEqual(self.piece, response.context["piece"])
+        self.assertIn(part, response.context["piece"].parts.all())
+        self.assertIsInstance(response.context["part_form"], PartForm)
         self.client.logout()
 
-#Part Views
+
 class TestPartView(TestCase):
-    """ Test the part view and context """
+    """Test the part view and context"""
+
     def setUp(self):
         self.user = User.objects.create_user(
             username="testuser", email="test@test.com", password="testpassword"
@@ -69,7 +77,7 @@ class TestPartView(TestCase):
             arranged_by="Test Arranger",
             genre="Test Genre",
             mc_location="Test Location",
-            band_arrangement="Test Band Arrangement",
+            band_arrangement="Flexi-band",
         )
         self.piece.save()
 
@@ -84,7 +92,7 @@ class TestPartView(TestCase):
         self.part.save()
 
     def test_part_view_visible_pdf(self):
-        """ Test the part view with a visible pdf """
+        """Test the part view with a visible pdf"""
         self.client.login(username="testuser", password="testpassword")
         response = self.client.get(reverse("part_view", args=[self.part.id]))
         self.assertEqual(response.status_code, 200)
@@ -95,7 +103,7 @@ class TestPartView(TestCase):
         self.client.logout()
 
     def test_part_view_upload_part(self):
-        """ Test the part view with a new part upload """
+        """Test the part view with a new part upload"""
         self.client.login(username="testuser", password="testpassword")
         response = self.client.post(
             reverse("part_view", args=[self.part.id]),
@@ -115,7 +123,7 @@ class TestPartView(TestCase):
             fetch_redirect_response=True,
         )
         part = Part.objects.get(pk=2)
-        
+
         response = self.client.get(reverse("part_view", args=[self.part.id]))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "library/piece_view.html")
