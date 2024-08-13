@@ -44,7 +44,8 @@
     <div class="col-sm-6 pdf-viewer">
         {% if part %}
         <h2>Part: {{part.instrument}} {{part.part_number}} </h2>
-        <embed class="pdf" src="{% url 'part_pdf_view' part.id %}#toolbar=0&navpanes=0&scrollbar=0" type="application/pdf">
+        <embed src="{% url 'part_pdf_view' part.id %}#toolbar=0&navpanes=0&scrollbar=0" class="pdf"
+            type="application/pdf">
         {% endif %}
     </div>
 

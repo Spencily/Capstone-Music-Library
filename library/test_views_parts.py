@@ -100,6 +100,17 @@ class TestPartView(TestCase):
         self.assertEqual(self.part, response.context["part"])
         self.assertEqual(self.piece, response.context["piece"])
         self.assertIsInstance(response.context["part_form"], PartForm)
+
+        content = response.content.decode("utf-8")
+        self.assertIn("<embed", content, "The embed tag was not found in the response.")
+        expected_src = reverse("part_pdf_view", args=[self.part.id])
+        expected_embed_str = f'<embed src="{expected_src}'
+
+        self.assertIn(
+            expected_embed_str,
+            content,
+            f"The embed with src '{expected_src}' was not found in the response.",
+        )
         self.client.logout()
 
     def test_part_view_upload_part(self):
@@ -131,4 +142,41 @@ class TestPartView(TestCase):
         self.assertEqual(self.piece, response.context["piece"])
         self.assertIn(part, response.context["piece"].parts.all())
         self.assertIsInstance(response.context["part_form"], PartForm)
+        self.client.logout()
+
+
+class TestPartPdfView(TestCase):
+    """Test the part pdf view and context"""
+
+    def setUp(self):
+        self.user = User.objects.create_user(
+            username="testuser", email="test@test.com", password="testpassword"
+        )
+        self.piece = Piece(
+            title="Test Title",
+            composer="Test Composer",
+            arranged_by="Test Arranger",
+            genre="Test Genre",
+            mc_location="Test Location",
+            band_arrangement="Flexi-band",
+        )
+        self.piece.save()
+
+        self.part = Part(
+            piece=self.piece,
+            instrument="Test Instrument",
+            part_number=1,
+            pdf_file=SimpleUploadedFile(
+                "test.pdf", b"file_content", content_type="application/pdf"
+            ),
+        )
+        self.part.save()
+
+    def test_part_pdf_view(self):
+        """Test the part pdf view"""
+        self.client.login(username="testuser", password="testpassword")
+        response = self.client.get(reverse("part_pdf_view", args=[self.part.id]))
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response["Content-Type"], "application/pdf")
+        self.assertEqual(response.content, b"file_content")
         self.client.logout()
