@@ -9,7 +9,7 @@ class Setlist(models.Model):
     pieces = models.ManyToManyField('library.Piece')
 
     def save(self, *args, **kwargs):
-        self.title = self.title.capitalize()
+        self.title = self.title.title()
         super(Setlist, self).save(*args, **kwargs)
 
     def __str__(self):

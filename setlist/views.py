@@ -21,8 +21,8 @@ def setlist_list(request):
 
 def setlist_view(request, pk):
     """Display a single setlist"""
-    setlist = get_object_or_404(Setlist, pk=pk)
     setlists = Setlist.objects.filter(created_by=request.user)
+    setlist = get_object_or_404(setlists, pk=pk)
     return render(
         request,
         "setlist/setlist.html",
@@ -32,7 +32,8 @@ def setlist_view(request, pk):
 
 def setlist_print_view(request, id):
     """View for the setlist print page, to print the setlist as a PDF"""
-    setlist = get_object_or_404(Setlist, pk=id)
+    setlists = Setlist.objects.filter(created_by=request.user)
+    setlist = get_object_or_404(setlists, pk=id)
     context = {'setlist': setlist}
     pdf = render_to_pdf("setlist/setlist_print.html", context)
     return HttpResponse(pdf, content_type="application/pdf")
@@ -80,7 +81,8 @@ def setlist_edit(request, pk):
 
 def setlist_delete(request, pk):
     """View to delete a setlist"""
-    setlist = get_object_or_404(Setlist, pk=pk)
+    setlists = Setlist.objects.filter(created_by=request.user)
+    setlist = get_object_or_404(setlists, pk=pk)
     if request.method == "POST":
         setlist.delete()
         messages.success(request, "Deletion Successful")

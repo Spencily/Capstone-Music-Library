@@ -80,13 +80,24 @@ def piece_edit(request, pk):
         filter_value = search_form.cleaned_data.get("filter")
 
         if query:
-            queryset = queryset.filter(**{filter_value + "__icontains": query})
+            if filter_value == "":
+                queryset = queryset.filter(
+                    Q(title__icontains=query)
+                    | Q(composer__icontains=query)
+                    | Q(genre__icontains=query)
+                    | Q(band_arrangement__icontains=query)
+                )
+            else:
+                queryset = queryset.filter(**{filter_value + "__icontains": query})
 
     piece = get_object_or_404(Piece, pk=pk)
     piece_form = PieceForm(instance=piece)
-    pieces = Piece.objects.all()
+    pieces = queryset
+    paginator = Paginator(pieces, 10)
+    page_number = request.GET.get("page")
+    page_obj = paginator.get_page(page_number)
     context = {
-        "pieces": pieces,
+        "pieces": page_obj,
         "piece_form": piece_form,
         "search_form": search_form,
         "current_url": resolve(request.path_info).url_name,
