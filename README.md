@@ -197,10 +197,10 @@ Finally I asked my peers to review and test the functionality which yielded posi
 ### Validator Testing
 
 - HTML
-    - No errors were returned when passing through the W3C validator
+    - No errors were returned when passing through the [W3C validator](https://validator.w3.org/)
 
 - CSS
-    - No errors were found when passing through the (Jigsaw) validator
+    - No errors were found when passing through the [(Jigsaw) validator](https://jigsaw.w3.org/css-validator/)
 
 - Performance and Accessibility
     - I used google dev tools lighthouse to test for this.
