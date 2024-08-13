@@ -14,11 +14,13 @@ from .models import Setlist
 # Create your views here.
 @login_required
 def setlist_list(request):
+    """View for the setlist page"""
     setlists = Setlist.objects.order_by("title").filter(created_by=request.user)
     return render(request, "setlist/setlist.html", {"setlists": setlists})
 
 
 def setlist_view(request, pk):
+    """Display a single setlist"""
     setlist = get_object_or_404(Setlist, pk=pk)
     setlists = Setlist.objects.filter(created_by=request.user)
     return render(
@@ -29,6 +31,7 @@ def setlist_view(request, pk):
 
 
 def setlist_print_view(request, id):
+    """View for the setlist print page, to print the setlist as a PDF"""
     setlist = get_object_or_404(Setlist, pk=id)
     context = {'setlist': setlist}
     pdf = render_to_pdf("setlist/setlist_print.html", context)
@@ -36,6 +39,7 @@ def setlist_print_view(request, id):
 
 
 def setlist_add(request):
+    """View to add a new setlist"""
     if request.method == "POST":
         setlist_form = SetForm(request.POST)
         if setlist_form.is_valid():
@@ -54,6 +58,7 @@ def setlist_add(request):
 
 
 def setlist_edit(request, pk):
+    """View to edit a setlist"""
     if request.method == "POST":
         setlist = get_object_or_404(Setlist, pk=pk)
         setlist_form = SetForm(request.POST, instance=setlist)
@@ -74,6 +79,7 @@ def setlist_edit(request, pk):
 
 
 def setlist_delete(request, pk):
+    """View to delete a setlist"""
     setlist = get_object_or_404(Setlist, pk=pk)
     if request.method == "POST":
         setlist.delete()

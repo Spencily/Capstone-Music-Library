@@ -7,6 +7,7 @@ from .models import Piece, Part
 
 #Library Views
 class TestLibraryPrintView(TestCase):
+    """ Test the library print view and context """
     def setUp(self):
         self.user = User.objects.create_user(
             username="testuser", email="test@test.com", password="testpassword"
@@ -31,6 +32,7 @@ class TestLibraryPrintView(TestCase):
 
 
 class TestPieceDeleteView(TestCase):
+    """ Test the piece delete view """
     def setUp(self):
         self.user = User.objects.create_user(
             username="testuser", email="test@test.com", password="testpassword")
@@ -47,13 +49,16 @@ class TestPieceDeleteView(TestCase):
     def test_piece_delete_view(self):
         self.client.login(username="testuser", password="testpassword")
         response = self.client.post(
-            reverse("library"),
+            reverse("piece_delete", args=[self.piece.id]), follow=True
         )
         self.assertEqual(response.status_code, 200)
+        with self.assertRaises(Piece.DoesNotExist):
+            Piece.objects.get(pk=self.piece.id)
         self.client.logout()
 
 #Part Views
 class TestPartView(TestCase):
+    """ Test the part view and context """
     def setUp(self):
         self.user = User.objects.create_user(
             username="testuser", email="test@test.com", password="testpassword"
@@ -79,6 +84,7 @@ class TestPartView(TestCase):
         self.part.save()
 
     def test_part_view_visible_pdf(self):
+        """ Test the part view with a visible pdf """
         self.client.login(username="testuser", password="testpassword")
         response = self.client.get(reverse("part_view", args=[self.part.id]))
         self.assertEqual(response.status_code, 200)
@@ -89,6 +95,7 @@ class TestPartView(TestCase):
         self.client.logout()
 
     def test_part_view_upload_part(self):
+        """ Test the part view with a new part upload """
         self.client.login(username="testuser", password="testpassword")
         response = self.client.post(
             reverse("part_view", args=[self.part.id]),

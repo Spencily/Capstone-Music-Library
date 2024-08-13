@@ -16,6 +16,7 @@ from .models import Part, Piece
 # Library Page
 @login_required
 def library_view(request):
+    """View for the library page, including a search form and a form to add new pieces"""
     if request.method == "POST":
         piece_form = PieceForm(request.POST)
         if piece_form.is_valid():
@@ -55,6 +56,7 @@ def library_view(request):
 
 
 def library_print_view(request):
+    """View for the library print page, to print the library as a PDF"""
     pieces = Piece.objects.all()
     context = {"pieces": pieces}
     pdf = render_to_pdf("library/library_print.html", context)
@@ -62,6 +64,7 @@ def library_print_view(request):
 
 
 def piece_edit(request, pk):
+    """View for editing a piece using the piece form"""
     if request.method == "POST":
         piece = get_object_or_404(Piece, pk=pk)
         piece_form = PieceForm(request.POST, instance=piece)
@@ -92,6 +95,7 @@ def piece_edit(request, pk):
 
 
 def piece_delete(request, pk):
+    """View for deleting a piece"""
     piece = get_object_or_404(Piece, pk=pk)
     if request.method == "POST":
         piece.delete()
@@ -101,9 +105,7 @@ def piece_delete(request, pk):
 
 # Piece View Page
 def piece_view(request, pk):
-    """View for a single piece, with parts
-    Form to add new parts to the piece, if form is invalid, return to the same page with error message
-    """
+    """Displays a piece's list of parts with a form to add new parts"""
     piece = get_object_or_404(Piece, pk=pk)
     part_form = PartForm()
 
@@ -120,6 +122,7 @@ def piece_view(request, pk):
 
 
 def part_view(request, pk):
+    """Displays a part with a form to add new parts"""
     part = get_object_or_404(Part, pk=pk)
     part_form = PartForm()
 
@@ -137,11 +140,13 @@ def part_view(request, pk):
 
 @xframe_options_exempt
 def part_pdf_view(request, pk):
+    """View for displaying a part's PDF file"""
     part = get_object_or_404(Part, pk=pk)
     return HttpResponse(part.pdf_file.file, content_type="application/pdf")
 
 
 def part_edit(request, pk):
+    """View for editing a part using the part form"""
     part = get_object_or_404(Part, pk=pk)
     part_form = PartForm(instance=part)
 
@@ -162,6 +167,7 @@ def part_edit(request, pk):
 
 
 def part_delete(request, pk):
+    """View for deleting a part"""
     part = get_object_or_404(Part, pk=pk)
     if request.method == "POST":
         part.delete()
