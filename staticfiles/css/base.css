@@ -16,7 +16,7 @@ h6 {
     justify-content: center;
     align-items: center;
     border: solid black;
-    color: black;
+    color: white;
     background-color: #b01a00;
 }
 
@@ -42,7 +42,7 @@ h6 {
 }
 
 .nav-link {
-    color: black;
+    color: white;
 }
 
 .nav-link:hover {
