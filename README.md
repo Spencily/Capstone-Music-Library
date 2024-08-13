@@ -227,7 +227,7 @@ Finally I asked my peers to review and test the functionality which yielded posi
 
 5. Redeploy everytime I have updated the code for the application
 
-- Deployed Link =  https://dettingen-music-library-9bff046c8600.herokuapp.com/
+Deployed Link =  https://dettingen-music-library-9bff046c8600.herokuapp.com/
 
 ## Credits
 I used various articles from the following sites to help with the creation and testing of my application.
