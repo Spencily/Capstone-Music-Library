@@ -200,7 +200,7 @@ Finally I asked my peers to review and test the functionality which yielded posi
     - No errors were returned when passing through the W3C validator
 
 - CSS
-    - No errors were found when passing through th e(Jigsaw) validator
+    - No errors were found when passing through the (Jigsaw) validator
 
 - Performance and Accessibility
     - I used google dev tools lighthouse to test for this.
