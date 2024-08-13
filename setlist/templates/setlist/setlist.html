@@ -14,7 +14,7 @@
                 <h2> My Setlists </h2>
             </div>
             <div class="col-6">
-                <a href="{% url 'setlist_add' %}" class="btn btn-outline-success"> Create a Setlist </a>
+                <a href="{% url 'setlist_add' %}" class="btn btn-success"> Create a Setlist </a>
             </div>
         </div>
 
@@ -24,11 +24,11 @@
                 <a href="{% url 'setlist_view' setlist.id %}"> {{setlist.title}}</a>
             </div>
             <div class="col">
-                <a href="{% url 'setlist_edit' setlist.id %}" class="btn btn-outline-warning"> Edit </a>
-                <a href="{% url 'setlist_print' setlist.id %}" class="btn btn-outline-info" target="_blank"> Print </a>
+                <a href="{% url 'setlist_edit' setlist.id %}" class="btn btn-warning"> Edit </a>
+                <a href="{% url 'setlist_print' setlist.id %}" class="btn btn-info" target="_blank"> Print </a>
                 <form method="post" action="{% url 'setlist_delete' setlist.id %}" class="d-inline delete-form">
                     {% csrf_token %}
-                    <button type="button" class="btn btn-outline-danger delete-btn">Delete</button>
+                    <button type="button" class="btn btn-danger delete-btn">Delete</button>
                 </form>
             </div>
 

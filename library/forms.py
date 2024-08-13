@@ -49,7 +49,7 @@ class SearchForm(forms.Form):
                     FieldWithButtons(
                         "query",
                         SubmitPlain(
-                            "submit", "Search", css_class="btn-outline-primary"
+                            "submit", "Search", css_class="btn-primary"
                         ),
                     ),
                     css_class="col-8 search",

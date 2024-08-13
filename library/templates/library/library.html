@@ -15,7 +15,7 @@
                 <h2> Our Library </h2>
             </div>
             <div class="col">
-                <a href="{% url 'library_print' %}" class="btn btn-outline-info" target="_blank">Print
+                <a href="{% url 'library_print' %}" class="btn btn-info" target="_blank">Print
                     PDF</a>
             </div>
             <form method="get" action="{% url 'library' %}">
@@ -45,10 +45,10 @@
                     <td> {{ piece.band_arrangement }} </td>
                     {% if user.is_staff %}
                     <td>
-                        <a href="{% url 'piece_edit' piece.id %}" class="btn btn-outline-warning"> Edit </a>
+                        <a href="{% url 'piece_edit' piece.id %}" class="btn btn-warning"> Edit </a>
                         <form method="post" action="{% url 'piece_delete' piece.id %}" class="delete-form">
                             {% csrf_token %}
-                            <button type="button" class="btn btn-outline-danger delete-btn">Delete</button>
+                            <button type="button" class="btn btn-danger delete-btn">Delete</button>
                         </form>
                     </td>
                     {% endif %}

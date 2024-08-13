@@ -30,10 +30,10 @@
                 </td>
                 {% if user.is_staff %}
                 <td>
-                    <a href="{% url 'part_edit' part.id %}" class="btn btn-outline-warning"> Edit </a>
+                    <a href="{% url 'part_edit' part.id %}" class="btn btn-warning"> Edit </a>
                     <form method="post" action="{% url 'part_delete' part.id %}" class="delete-form">
                         {% csrf_token %}
-                        <button type="button" class="btn btn-outline-danger delete-btn">Delete</button>
+                        <button type="button" class="btn btn-danger delete-btn">Delete</button>
                     </form>
                     {% endif %}
             </tr>
