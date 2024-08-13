@@ -86,3 +86,9 @@ All manual tests were passed successfully. Any issues found were promptly addres
 ### Prerequisites
 - Heroku account
 - Git installed locally
+
+## Credits
+- Bootstrap Documentation
+- Django Documentation
+- SweetAlert2 Documentation
+- ChatGPT
