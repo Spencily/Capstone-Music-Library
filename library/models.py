@@ -20,9 +20,9 @@ class Piece(models.Model):
     def save(self, *args, **kwargs):
         self.title = self.title.title()
         self.composer = self.composer.title()
-        self.arranged_by = self.arranged_by.capitalize()
-        self.genre = self.genre.capitalize()
-        self.mc_location = self.mc_location.capitalize()
+        self.arranged_by = self.arranged_by.title()
+        self.genre = self.genre.title()
+        self.mc_location = self.mc_location.title()
 
         super(Piece, self).save(*args, **kwargs)
 
