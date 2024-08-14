@@ -9,21 +9,48 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('library', '0002_parts'),
+        ("library", "0002_parts"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Part',
+            name="Part",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('instrument', models.CharField(max_length=100)),
-                ('part_number', models.SmallIntegerField(default=0, validators=[django.core.validators.MinValueValidator(0), django.core.validators.MaxValueValidator(5)])),
-                ('pdf_file', cloudinary.models.CloudinaryField(max_length=255, verbose_name='pdf_file')),
-                ('piece', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='library.piece')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("instrument", models.CharField(max_length=100)),
+                (
+                    "part_number",
+                    models.SmallIntegerField(
+                        default=0,
+                        validators=[
+                            django.core.validators.MinValueValidator(0),
+                            django.core.validators.MaxValueValidator(5),
+                        ],
+                    ),
+                ),
+                (
+                    "pdf_file",
+                    cloudinary.models.CloudinaryField(
+                        max_length=255, verbose_name="pdf_file"
+                    ),
+                ),
+                (
+                    "piece",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE, to="library.piece"
+                    ),
+                ),
             ],
         ),
         migrations.DeleteModel(
-            name='Parts',
+            name="Parts",
         ),
     ]

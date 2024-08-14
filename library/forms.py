@@ -48,9 +48,7 @@ class SearchForm(forms.Form):
                 Div(
                     FieldWithButtons(
                         "query",
-                        SubmitPlain(
-                            "submit", "Search", css_class="btn-primary"
-                        ),
+                        SubmitPlain("submit", "Search", css_class="btn-primary"),
                     ),
                     css_class="col-8 search",
                 ),

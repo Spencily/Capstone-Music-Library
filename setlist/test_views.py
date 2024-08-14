@@ -9,6 +9,7 @@ from .forms import SetForm
 
 class TestSetlistListView(TestCase):
     """Tests for the setlist list view"""
+
     def setUp(self):
         self.user = User.objects.create_user(
             username="testuser", password="testpassword"
@@ -29,9 +30,7 @@ class TestSetlistListView(TestCase):
         self.client.logout()
 
     def test_setlist_view_other_user(self):
-        User.objects.create_user(
-            username="otheruser", password="otherpassword"
-        )
+        User.objects.create_user(username="otheruser", password="otherpassword")
         self.client.login(username="otheruser", password="otherpassword")
         response = self.client.get(reverse("setlist"))
         self.assertEqual(response.status_code, 200)
@@ -42,6 +41,7 @@ class TestSetlistListView(TestCase):
 
 class TestSetlistView(TestCase):
     """Tests for the setlist view"""
+
     def setUp(self):
         self.user = User.objects.create_user(
             username="testuser", password="testpassword"
@@ -62,9 +62,7 @@ class TestSetlistView(TestCase):
         self.client.logout()
 
     def test_setlist_view_other_user(self):
-        User.objects.create_user(
-            username="otheruser", password="otherpassword"
-        )
+        User.objects.create_user(username="otheruser", password="otherpassword")
         self.client.login(username="otheruser", password="otherpassword")
         response = self.client.get(reverse("setlist_view", args=[self.setlist.id]))
         self.assertEqual(response.status_code, 404)
@@ -73,6 +71,7 @@ class TestSetlistView(TestCase):
 
 class TestSetlistPrintView(TestCase):
     """Tests for the setlist print view"""
+
     def setUp(self):
         self.user = User.objects.create_user(
             username="testuser", password="testpassword"
@@ -91,9 +90,7 @@ class TestSetlistPrintView(TestCase):
         self.client.logout()
 
     def test_setlist_print_view_other_user(self):
-        User.objects.create_user(
-            username="otheruser", password="otherpassword"
-        )
+        User.objects.create_user(username="otheruser", password="otherpassword")
         self.client.login(username="otheruser", password="otherpassword")
         response = self.client.get(reverse("setlist_print", args=[self.setlist.id]))
         self.assertEqual(response.status_code, 404)
@@ -195,6 +192,7 @@ class TestSetlistEditView(TestCase):
         self.assertIn(self.piece, self.setlist.pieces.all())
         self.client.logout()
 
+
 class TestSetlistDeleteView(TestCase):
     """Tests for the setlist delete view"""
 
@@ -230,9 +228,7 @@ class TestSetlistDeleteView(TestCase):
         self.client.logout()
 
     def test_setlist_delete_view_other_user(self):
-        User.objects.create_user(
-            username="otheruser", password="otherpassword"
-        )
+        User.objects.create_user(username="otheruser", password="otherpassword")
         self.client.login(username="otheruser", password="otherpassword")
         response = self.client.post(
             reverse("setlist_delete", args=[self.setlist.id]),

@@ -34,7 +34,7 @@ def setlist_print_view(request, id):
     """View for the setlist print page, to print the setlist as a PDF"""
     setlists = Setlist.objects.filter(created_by=request.user)
     setlist = get_object_or_404(setlists, pk=id)
-    context = {'setlist': setlist}
+    context = {"setlist": setlist}
     pdf = render_to_pdf("setlist/setlist_print.html", context)
     return HttpResponse(pdf, content_type="application/pdf")
 

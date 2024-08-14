@@ -8,18 +8,24 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('library', '0003_part_delete_parts'),
+        ("library", "0003_part_delete_parts"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='part',
-            name='pdf_file',
-            field=models.FileField(storage=gdstorage.storage.GoogleDriveStorage(), upload_to='pdf/'),
+            model_name="part",
+            name="pdf_file",
+            field=models.FileField(
+                storage=gdstorage.storage.GoogleDriveStorage(), upload_to="pdf/"
+            ),
         ),
         migrations.AlterField(
-            model_name='part',
-            name='piece',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='parts', to='library.piece'),
+            model_name="part",
+            name="piece",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="parts",
+                to="library.piece",
+            ),
         ),
     ]

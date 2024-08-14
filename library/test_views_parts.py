@@ -187,7 +187,8 @@ class TestPartEdit(TestCase):
 
     def setUp(self):
         self.user = User.objects.create_user(
-            username="testuser", email="test@test.com", password="testpassword")
+            username="testuser", email="test@test.com", password="testpassword"
+        )
         self.piece = Piece(
             title="Test Title",
             composer="Test Composer",
@@ -244,12 +245,14 @@ class TestPartEdit(TestCase):
         self.assertEqual(part.pdf_file.read(), b"file_content")
         self.client.logout()
 
+
 class TestPartDelete(TestCase):
     """Test the part delete view"""
 
     def setUp(self):
         self.user = User.objects.create_user(
-            username="testuser", email="test@test.com", password="testpassword")
+            username="testuser", email="test@test.com", password="testpassword"
+        )
         self.piece = Piece(
             title="Test Title",
             composer="Test Composer",

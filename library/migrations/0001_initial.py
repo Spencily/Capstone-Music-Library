@@ -7,20 +7,36 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Piece',
+            name="Piece",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('title', models.CharField(max_length=100)),
-                ('composer', models.CharField(blank=True, max_length=100)),
-                ('arranged_by', models.CharField(blank=True, max_length=100)),
-                ('genre', models.CharField(max_length=100)),
-                ('mc_location', models.CharField(blank=True, max_length=100)),
-                ('band_arrangement', models.CharField(choices=[('Full-band', 'Full-band'), ('Flexi-band', 'Flexi-band')], max_length=20)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("title", models.CharField(max_length=100)),
+                ("composer", models.CharField(blank=True, max_length=100)),
+                ("arranged_by", models.CharField(blank=True, max_length=100)),
+                ("genre", models.CharField(max_length=100)),
+                ("mc_location", models.CharField(blank=True, max_length=100)),
+                (
+                    "band_arrangement",
+                    models.CharField(
+                        choices=[
+                            ("Full-band", "Full-band"),
+                            ("Flexi-band", "Flexi-band"),
+                        ],
+                        max_length=20,
+                    ),
+                ),
             ],
         ),
     ]
