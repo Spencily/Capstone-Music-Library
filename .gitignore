@@ -1,2 +1,4 @@
 env.py
 creds.json
+__pycache__/
+*.py[cod]
