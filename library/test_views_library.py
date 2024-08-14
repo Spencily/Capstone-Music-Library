@@ -1,9 +1,7 @@
 from django.contrib.auth.models import User
-from django.core.files.uploadedfile import SimpleUploadedFile
 from django.urls import reverse
 from django.test import TestCase
-from .forms import PieceForm, PartForm, SearchForm
-from .models import Piece, Part
+from .models import Piece
 
 
 class TestLibraryView(TestCase):
@@ -47,7 +45,7 @@ class TestLibraryView(TestCase):
             follow=True,
         )
         self.assertEqual(response.status_code, 200)
-        piece = Piece.objects.get(title="Test Title 2")
+        Piece.objects.get(title="Test Title 2")
         self.client.logout()
 
     def test_library_view_search(self):

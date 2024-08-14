@@ -4,7 +4,6 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.urls import resolve, reverse
 
-from library.models import Piece
 from dettingen.utilities import render_to_pdf
 
 from .forms import SetForm

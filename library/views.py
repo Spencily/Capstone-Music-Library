@@ -16,7 +16,8 @@ from .models import Part, Piece
 # Library Page
 @login_required
 def library_view(request):
-    """View for the library page, including a search form and a form to add new pieces"""
+    """View for the library page,
+    including a search form and a form to add new pieces"""
     if request.method == "POST":
         piece_form = PieceForm(request.POST)
         if piece_form.is_valid():
