@@ -21,6 +21,8 @@ The Dettingen Music Library App is designed to provide a user-friendly experienc
 
 -  **Clear Visual Hierarchy:** Use of consistent colours, typography, and spacing to guide users through the app's functionalities.
 
+Currently there is a slight delay when PDFs are loading which may impact the users experience, this will be improved in future developments.
+
 ### Wireframe Design
 
 I used a program called Balsamiq in order to create a wireframe to plan the main pages of my application.
