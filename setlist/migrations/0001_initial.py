@@ -8,7 +8,7 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ("library", "0001_initial"),
+        ("library", "0001_squashed_0005_alter_part_options_alter_part_unique_together"),
     ]
 
     operations = [
