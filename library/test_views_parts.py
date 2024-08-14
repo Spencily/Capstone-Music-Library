@@ -208,8 +208,18 @@ class TestPartEdit(TestCase):
         )
         self.part.save()
 
-    def test_part_edit(self):
-        """Test the part edit view"""
+    def test_part_edit_display_form(self):
+        """Test the part edit view with the form displayed"""
+        self.client.login(username="testuser", password="testpassword")
+        response = self.client.get(reverse("part_edit", args=[self.part.id]))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "library/piece_view.html")
+        self.assertEqual(self.piece, response.context["piece"])
+        self.assertIsInstance(response.context["part_form"], PartForm)
+        self.client.logout()
+
+    def test_part_edit_update_part(self):
+        """Test the part edit view when updating a part"""
         self.client.login(username="testuser", password="testpassword")
         response = self.client.post(
             reverse("part_edit", args=[self.part.id]),

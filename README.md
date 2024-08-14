@@ -182,7 +182,7 @@ All manual tests were passed successfully. Any issues found were promptly addres
 
 ### Automatic Testing
 
-40 automatic tests have been carried out to ensure everything is functioning correctly and that errors will be produced if one becomes invalid.
+42 automatic tests have been carried out to ensure everything is functioning correctly and that errors will be produced if one becomes invalid.
 
 Automatic testing will allow me to easily and efficiently maintain my app by quickly being able to spot any issues if my tests fail.
 

@@ -4,6 +4,7 @@ from django.urls import reverse
 
 from library.models import Piece
 from .models import Setlist
+from .forms import SetForm
 
 
 class TestSetlistListView(TestCase):
@@ -166,7 +167,17 @@ class TestSetlistEditView(TestCase):
         self.setlist.pieces.add(self.piece)
         self.setlist.save()
 
-    def test_setlist_edit_view(self):
+    def test_setlist_edit_view_displays_form(self):
+        """Test that the edit view displays the form"""
+        self.client.login(username="testuser", password="testpassword")
+        response = self.client.get(reverse("setlist_edit", args=[self.setlist.id]))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "setlist/setlist_form.html")
+        self.assertIsInstance(response.context["form"], SetForm)
+        self.client.logout()
+
+    def test_setlist_edit_view_update_set(self):
+        """Test that the setlist is updated"""
         self.client.login(username="testuser", password="testpassword")
         response = self.client.post(
             reverse("setlist_edit", args=[self.setlist.id]),
